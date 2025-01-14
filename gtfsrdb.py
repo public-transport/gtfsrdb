@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # gtfsrdb.py: load gtfs-realtime data to a database
 # recommended to have the (static) GTFS data for the agency you are connecting
 # to already loaded.
@@ -52,7 +50,7 @@ p.add_option('-d', '--database', default=None, dest='dsn',
 
 p.add_option('-o', '--discard-old', default=False, dest='deleteOld',
              action='store_true',
-             help='Dicard old updates, so the database is always current')
+             help='Discard old updates, so the database is always current')
 
 p.add_option('-c', '--create-tables', default=False, dest='create',
              action='store_true', help="Create tables if they aren't found")
@@ -170,7 +168,7 @@ try:
 
                 # Convert this a Python object, and save it to be placed into each
                 # trip_update
-                timestamp = datetime.datetime.utcfromtimestamp(fm.header.timestamp)
+                timestamp = datetime.datetime.fromtimestamp(fm.header.timestamp, datetime.UTC)
 
                 # Check the feed version
                 if fm.header.gtfs_realtime_version != u'1.0':
