@@ -1,0 +1,30 @@
+[project]
+name = "GTFSrDB"
+authors = [
+  { name="CUTR-at-USF"},
+]
+maintainers = [
+    { name="Max Buchholz"}
+]
+description = "GTFSrDB loads GTFS-realtime data to a database."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "sqlalchemy",
+    "protobuf"
+]
+dynamic = ["version"]
+
+license = {file = 'LICENSE'}
+
+[project.urls]
+Homepage = "https://github.com/public-transport/gtfsrdb"
+Issues = "https://github.com/public-transport/gtfsrdb/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
