@@ -25,6 +25,10 @@ license = {file = 'LICENSE'}
 Homepage = "https://github.com/public-transport/gtfsrdb"
 Issues = "https://github.com/public-transport/gtfsrdb/issues"
 
+[project.scripts]
+gtfsrdb = "gtfsrdb.gtfsrdb:app"
+
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
