@@ -14,7 +14,7 @@ You can process multiple types of GTFS-realtime feeds in the same execution by u
 GTFSrDB will run and keep a database up-to-date with the latest GTFSr data. It can also be used to
 archive this data for historical or statistical purposes. GTFSrDB is designed to work in tandem 
 with [gtfsdb](https://github.com/OpenTransitTools/gtfsdb).  GTFSrDB uses SQLAlchemy, so it should work with 
-most any database system; So far its been used with SQLite, Postgres, and Microsoft SQL Server. 
+almost any database system; So far it's been used with SQLite, Postgres, and Microsoft SQL Server. 
 Just specify a database url on the command line with `-d`.
 
 ### Example Use
@@ -88,11 +88,11 @@ in the parent in the SQL database (to avoid creating many joined tables):
 * StopTimeUpdate.arrival becomes arrival_time, arrival_delay & 
   arrival_uncertainty
 * StopTimeUpdate.departure becomes departure_time &c.
-* Alert.active_period is condensed to Alert.start and Alert.end; if
+* `Alert.active_period` is condensed to `Alert.start` and `Alert.end`; if
   there are multiple active periods, only the first one is stored.
-* All TranslatedStrings are converted to plain strings, using a) the
-  language specified with the -l option, b) any untranslated string if
-  a string for the language is not found, or c) the only string in the 
+* All TranslatedStrings are converted to plain strings, using either the
+  language specified with the -l option, any untranslated string if
+  a string for the language is not found, or the only string in the 
   case of a single string in the file.
 * Position.latitude becomes position_latitude
 * Position.longitude becomes position_longitude
@@ -112,7 +112,7 @@ tables. You can then use SQL's relational features to mash up the data
 any way you want. (Keep in mind that GTFS uses strings for IDs, and
 SQL generally uses numbers. trip_updates and stop_time_updates, as
 well as alerts and entity_selectors, are related on the oid column,
-which is a sequential integer primary key. All of the GTFS ID fields
+which is a sequential integer primary key. All the GTFS ID fields
 are left intact, for joining with the static data. You can't just cast
 the strings to numbers; take a look at BART's stop IDs in the examples
 below).
@@ -123,7 +123,7 @@ that the first two are for BART, which embeds stop_ids in GTFSr; other agencies
 stop_time_updates.stop_sequence; you'll need to use slightly more complex
 queries for those.
 
-This query shows all of the stop time updates that relate cleanly to the stops table. 
+This query shows all the stop time updates that relate cleanly to the stops table. 
 Keep in mind that trips.trip_id = trip_updates.trip_id only works for trips that are not
 frequency-expanded (i.e. multiple trips with the same trip_id)
 
