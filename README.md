@@ -88,11 +88,11 @@ in the parent in the SQL database (to avoid creating many joined tables):
 * StopTimeUpdate.arrival becomes arrival_time, arrival_delay & 
   arrival_uncertainty
 * StopTimeUpdate.departure becomes departure_time &c.
-* Alert.active_period is condensed to Alert.start and Alert.end; if
+* `Alert.active_period` is condensed to `Alert.start` and `Alert.end`; if
   there are multiple active periods, only the first one is stored.
-* All TranslatedStrings are converted to plain strings, using a) the
-  language specified with the -l option, b) any untranslated string if
-  a string for the language is not found, or c) the only string in the 
+* All TranslatedStrings are converted to plain strings, using either the
+  language specified with the -l option, any untranslated string if
+  a string for the language is not found, or the only string in the 
   case of a single string in the file.
 * Position.latitude becomes position_latitude
 * Position.longitude becomes position_longitude
