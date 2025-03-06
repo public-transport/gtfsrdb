@@ -168,7 +168,7 @@ try:
 
                 # Convert this a Python object, and save it to be placed into each
                 # trip_update
-                timestamp = datetime.datetime.fromtimestamp(fm.header.timestamp, datetime.UTC)
+                timestamp = datetime.datetime.utcfromtimestamp(fm.header.timestamp)
 
                 # Check the feed version
                 if fm.header.gtfs_realtime_version != u'1.0':

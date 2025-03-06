@@ -23,9 +23,9 @@ Installation via `pip install -e .`
 1. **Bay Area Rapid Transit with GTFS-realtime TripUpdates:**
 
    a. Using SQLite:
-
-       gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d sqlite:///test.db -c
-
+      ```shell
+      gtfsrdb -t http://api.tampa.onebusaway.org:8088/trip-updates -d sqlite:///test.db -c
+      ```
    b. Using Microsoft SQL Server (note you'll need [pyodbc](https://github.com/mkleehammer/pyodbc)):
 
        gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://<username>:<password>@<public_database_server_name>/<database_name> -c
