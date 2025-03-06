@@ -18,26 +18,27 @@ almost any database system; So far it's been used with SQLite, Postgres, and Mic
 Just specify a database url on the command line with `-d`.
 
 ### Example Use
+Installation via `pip install -e .`
 
 1. **Bay Area Rapid Transit with GTFS-realtime TripUpdates:**
 
    a. Using SQLite:
-
-       gtfsrdb.py -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d sqlite:///test.db -c
-
+      ```shell
+      gtfsrdb -t http://api.tampa.onebusaway.org:8088/trip-updates -d sqlite:///test.db -c
+      ```
    b. Using Microsoft SQL Server (note you'll need [pyodbc](https://github.com/mkleehammer/pyodbc)):
 
-       gtfsrdb.py -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://<username>:<password>@<public_database_server_name>/<database_name> -c
+       gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://<username>:<password>@<public_database_server_name>/<database_name> -c
 
       So, if the `username=jdoe`, `password=pswd`, `public_database_server_name=my.public.database.org`, `database_name=gtfsrdb`, the command is:
 
-       gtfsrdb.py -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://jdoe:pswd@my.public.database.org/gtfsrdb -c
+       gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://jdoe:pswd@my.public.database.org/gtfsrdb -c
 
 2. **Massachusetts Bay Transportation Authority with GTFS-realtime VehiclePositions:**
 
    a. Using SQLite:
   
-       gtfsrdb.py -p http://developer.mbta.com/lib/gtrtfs/Vehicles.pb -d sqlite:///test.db -c
+       gtfsrdb -p http://developer.mbta.com/lib/gtrtfs/Vehicles.pb -d sqlite:///test.db -c
 
 3. **GTFS-realtime VehiclePositions stored as offline protocol buffers**
 
@@ -46,7 +47,7 @@ Just specify a database url on the command line with `-d`.
        #!/bin/sh
        for file in /path/to/files/*; 
        do 
-         python /path/to/gtfsrdb.py --once -p file://$file -d "mysql://<username>:<password>@<public_database_server_name>/<database_name>" -c
+         gtfsrdb --once -p file://$file -d "mysql://<username>:<password>@<public_database_server_name>/<database_name>" -c
        done
 
 The model for the data is in `model.py`; you should be able to use this 

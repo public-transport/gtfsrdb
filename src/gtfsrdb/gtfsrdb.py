@@ -31,8 +31,8 @@ except ImportError:
     from urllib.request import urlopen
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
-import gtfs_realtime_pb2
-from model import *
+import gtfsrdb.gtfs_realtime_pb2 as gtfs_realtime_pb2
+from gtfsrdb.model import *
 
 p = OptionParser()
 
@@ -168,7 +168,7 @@ try:
 
                 # Convert this a Python object, and save it to be placed into each
                 # trip_update
-                timestamp = datetime.datetime.fromtimestamp(fm.header.timestamp, datetime.UTC)
+                timestamp = datetime.datetime.utcfromtimestamp(fm.header.timestamp)
 
                 # Check the feed version
                 if fm.header.gtfs_realtime_version != u'1.0':
