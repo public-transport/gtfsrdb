@@ -20,7 +20,7 @@
 # Matt Conway: main code
 
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, Boolean, Float
+from sqlalchemy import Column, ForeignKey, Integer, Text, DateTime, Float
 from sqlalchemy.orm import relationship, backref
 
 Base = declarative_base()
@@ -49,18 +49,18 @@ class TripUpdate(Base):
 
     # This replaces the TripDescriptor message
     # TODO: figure out the relations
-    trip_id = Column(String(64))
-    route_id = Column(String(64))
-    trip_start_time = Column(String(8))
-    trip_start_date = Column(String(10))
+    trip_id = Column(Text)
+    route_id = Column(Text)
+    trip_start_time = Column(Text)
+    trip_start_date = Column(Text)
     # Put in the string value not the enum
     # TODO: add a domain
-    schedule_relationship = Column(String(9))
+    schedule_relationship = Column(Text)
 
     # Collapsed VehicleDescriptor
-    vehicle_id = Column(String(64))
-    vehicle_label = Column(String(255))
-    vehicle_license_plate = Column(String(10))
+    vehicle_id = Column(Text)
+    vehicle_label = Column(Text)
+    vehicle_license_plate = Column(Text)
 
     # moved from the header, and reformatted as datetime
     timestamp = Column(DateTime)
@@ -74,7 +74,7 @@ class StopTimeUpdate(Base):
 
     # TODO: Fill one from the other
     stop_sequence = Column(Integer)
-    stop_id = Column(String(10))
+    stop_id = Column(Text)
 
     # Collapsed StopTimeEvent
     arrival_delay = Column(Integer)
@@ -87,7 +87,7 @@ class StopTimeUpdate(Base):
     departure_uncertainty = Column(Integer)
 
     # TODO: Add domain
-    schedule_relationship = Column(String(9))
+    schedule_relationship = Column(Text)
 
     # Link it to the TripUpdate
     trip_update_id = Column(Integer, ForeignKey('trip_updates.oid'))
@@ -105,12 +105,12 @@ class Alert(Base):
     end = Column(Integer)
 
     # Add domain
-    cause = Column(String(20))
-    effect = Column(String(20))
+    cause = Column(Text)
+    effect = Column(Text)
 
-    url = Column(String(300))
-    header_text = Column(String(80))
-    description_text = Column(String(4000))
+    url = Column(Text)
+    header_text = Column(Text)
+    description_text = Column(Text)
 
     InformedEntities = relationship('EntitySelector', backref='Alert')
 
@@ -119,16 +119,16 @@ class EntitySelector(Base):
     __tablename__ = 'entity_selectors'
     oid = Column(Integer, primary_key=True)
 
-    agency_id = Column(String(15))
-    route_id = Column(String(64))
+    agency_id = Column(Text)
+    route_id = Column(Text)
     route_type = Column(Integer)
-    stop_id = Column(String(10))
+    stop_id = Column(Text)
 
     # Collapsed TripDescriptor
-    trip_id = Column(String(64))
-    trip_route_id = Column(String(64))
-    trip_start_time = Column(String(8))
-    trip_start_date = Column(String(10))
+    trip_id = Column(Text)
+    trip_route_id = Column(Text)
+    trip_start_time = Column(Text)
+    trip_start_date = Column(Text)
 
     alert_id = Column(Integer, ForeignKey('alerts.oid'))
 
@@ -139,15 +139,15 @@ class VehiclePosition(Base):
 
     # This replaces the TripDescriptor message
     # TODO: figure out the relations
-    trip_id = Column(String(64))
-    route_id = Column(String(64))
-    trip_start_time = Column(String(8))
-    trip_start_date = Column(String(10))
+    trip_id = Column(Text)
+    route_id = Column(Text)
+    trip_start_time = Column(Text)
+    trip_start_date = Column(Text)
 
     # Collapsed VehicleDescriptor
-    vehicle_id = Column(String(64))
-    vehicle_label = Column(String(255))
-    vehicle_license_plate = Column(String(10))
+    vehicle_id = Column(Text)
+    vehicle_label = Column(Text)
+    vehicle_license_plate = Column(Text)
 
     # Collapsed Position
     position_latitude = Column(Float)
@@ -155,7 +155,7 @@ class VehiclePosition(Base):
     position_bearing = Column(Float)
     position_speed = Column(Float)
 
-    occupancy_status = Column(String(27))
+    occupancy_status = Column(Text)
 
     # moved from the header, and reformatted as datetime
     timestamp = Column(DateTime)
