@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source env.sh
+source .env
 
 if [ $# -eq 0 ]; then
     >&2 echo "Arguments: [agency database to remove]"

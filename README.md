@@ -252,11 +252,17 @@ To get started with the scripts, first make sure you have a good working Python 
 2. Create a Python virtual environment: `python3 -m venv venv`
 3. Install the required libraries: `pip3 install -r requirements.txt`
 
-Once your environment is configured, edit `env.sh` to ensure the `DB_HOST`, `DB_USER`, and `DB_PASS` are correct for your application. Also note that the `run.sh` script will create a database with the name specified by `DB`, so you may also alter this if you wish.
+Once your environment is configured, create a file in the scripts directory called `.env` as follows, specifying the values as appropriate for your environment:
+```
+DB_HOST="localhost"
+DB="gtfs"
+DB_USER="gtfs"
+DB_PASS="gtfs"
+```
 
-Once your `env.sh` is configured, you can use `run.sh`. There are two ways to use this script:
+Once your `.env` is configured, you can use `run.sh`. There are two ways to use this script:
 1. Specify all of your options on the command line. For example, if you were using the Tampa GTFS-RT feed, you would use something like the following:
-`./run.sh tampa -t http://api.tampa.onebusaway.org:8088/trip-updates`. This will create a PostgreSQL database using the `DB` from `env.sh`, create a table in that database called `tampa`, and populate the database's `trip_updates` table with the data received from the GTFS-RT feed. You can also subscribe to other feeds (alerts or position updates) or apply other gtfsrdb options just as you would if you ran `gtfsrdb.py` from the command line directly.
+`./run.sh tampa -t http://api.tampa.onebusaway.org:8088/trip-updates`. This will create a PostgreSQL database using the `DB` from `.env`, create a table in that database called `tampa`, and populate the database's `trip_updates` table with the data received from the GTFS-RT feed. You can also subscribe to other feeds (alerts or position updates) or apply other gtfsrdb options just as you would if you ran `gtfsrdb.py` from the command line directly.
 2. Create a text file with the feeds you want to subscribe to and use the `-I` option in the `run.sh` script. For example, you could create a file for the StanRTA GTFS-RT fields called `stanrta.txt` and populate it like so:
 ```
 -p https://max.availtec.com/InfoPoint/GTFS-Realtime.ashx?Type=VehiclePosition
