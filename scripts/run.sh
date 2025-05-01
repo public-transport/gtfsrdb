@@ -44,5 +44,5 @@ fi
 
 # Uncomment to debug commands sent to gtfsrdb.py.
 # set -x
-python3 "$PROJECT_DIR"/src/gtfsrdb/gtfsrdb.py -d postgresql+psycopg2://"$DB_USER":"$DB_PASS"@"$DB_HOST"/"$DB_NAME" -c \
-  $gtfsrdb_args $optional_args
+cd "$PROJECT_DIR" || exit 3
+gtfsrdb -d postgresql+psycopg2://"$DB_USER":"$DB_PASS"@"$DB_HOST"/"$DB_NAME" -c $gtfsrdb_args $optional_args
