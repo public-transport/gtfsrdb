@@ -15,40 +15,27 @@ GTFSrDB will run and keep a database up-to-date with the latest GTFSr data. It c
 archive this data for historical or statistical purposes. GTFSrDB is designed to work in tandem 
 with [gtfsdb](https://github.com/OpenTransitTools/gtfsdb).  GTFSrDB uses SQLAlchemy, so it should work with 
 almost any database system; So far it's been used with SQLite, Postgres, and Microsoft SQL Server. 
-Just specify a database url on the command line with `-d`.
+Just specify a [database url](https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls) on the command line with `-d`.
 
 ### Example Use
 Installation via `pip install -e .`
 
-1. **Bay Area Rapid Transit with GTFS-realtime TripUpdates:**
+1. **Hillsborough Area Regional Transit Authority with GTFS-realtime TripUpdates:**
 
    a. Using SQLite:
       ```shell
       gtfsrdb -t http://api.tampa.onebusaway.org:8088/trip-updates -d sqlite:///test.db -c
       ```
-   b. Using Microsoft SQL Server (note you'll need [pyodbc](https://github.com/mkleehammer/pyodbc)):
+2. **GTFS-realtime VehiclePositions stored as offline protocol buffers**
 
-       gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://<username>:<password>@<public_database_server_name>/<database_name> -c
-
-      So, if the `username=jdoe`, `password=pswd`, `public_database_server_name=my.public.database.org`, `database_name=gtfsrdb`, the command is:
-
-       gtfsrdb -t http://api.bart.gov/gtfsrt/tripupdate.aspx -d mssql+pyodbc://jdoe:pswd@my.public.database.org/gtfsrdb -c
-
-2. **Massachusetts Bay Transportation Authority with GTFS-realtime VehiclePositions:**
-
-   a. Using SQLite:
-  
-       gtfsrdb -p http://developer.mbta.com/lib/gtrtfs/Vehicles.pb -d sqlite:///test.db -c
-
-3. **GTFS-realtime VehiclePositions stored as offline protocol buffers**
-
-   a. Using MySQL and Bash:
-
-       #!/bin/sh
-       for file in /path/to/files/*; 
-       do 
-         gtfsrdb --once -p file://$file -d "mysql://<username>:<password>@<public_database_server_name>/<database_name>" -c
-       done
+   a. Using SQLite and Bash:
+      ```bash
+      #!/bin/bash
+      for file in /path/to/files/*; 
+      do 
+        gtfsrdb --once -p file://$file -d "sqlite:///test.db" -c
+      done
+      ```
 
 The model for the data is in `model.py`; you should be able to use this 
 standalone with SQLAlchemy to process the data in Python.
@@ -247,10 +234,11 @@ See the [gtfsrdb-delay-demo](https://github.com/CUTR-at-USF/gtfsrdb-delay-demo) 
 
 The scripts/ directory is provided as a "quick start" method for using GTFSrDB. A database server is still a prerequisite, and the scripts assume you're using PostgreSQL.
 
-To get started with the scripts, first make sure you have a good working Python environment. This involves setting up a virtual environment, then installing the required libraries. A quick way to do this is as follows:
-1. Ensure you are in the root directory of gtfsrdb on your PC.
-2. Create a Python virtual environment: `python3 -m venv venv`
-3. Install the required libraries: `pip3 install -r requirements.txt`
+To get started with the scripts, first make sure you have a good working Python environment. This involves setting up a virtual environment, then installing the required libraries. A good way to do this is as follows:
+1. Create a Python virtual environment: `python3 -m venv .venv`
+2. Activate the virtual environment: `source .venv/bin/activate`
+3. Install packages required for GTFSrDB: `pip3 install -e .`
+4. Install additional Python packages for interfacing with PostgreSQL: `pip3 install psycopg2-binary`
 
 Once your environment is configured, create a file in the scripts directory called `.env` as follows, specifying the values as appropriate for your environment:
 ```
